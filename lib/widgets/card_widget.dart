@@ -9,6 +9,28 @@ class CardWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // スート記号と色を取得
+    String suitSymbol;
+    Color suitColor;
+    switch (card.suit) {
+      case Suit.hearts:
+        suitSymbol = '♥';
+        suitColor = Colors.red;
+        break;
+      case Suit.diamonds:
+        suitSymbol = '♦';
+        suitColor = Colors.red;
+        break;
+      case Suit.clubs:
+        suitSymbol = '♣';
+        suitColor = Colors.black;
+        break;
+      case Suit.spades:
+        suitSymbol = '♠';
+        suitColor = Colors.black;
+        break;
+    }
+
     return Container(
         margin: EdgeInsets.all(4),
         width: 60,
@@ -19,11 +41,35 @@ class CardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
         ),
         child: faceUp
-            ? Center(
-                child: Text(
-                  card.display,
-                  style: TextStyle(fontSize: 10),
-                ),
+            ? Stack(
+                children: [
+                  Positioned(
+                    left: 6,
+                    top: 6,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          card.rank.name.toUpperCase(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: suitColor,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          suitSymbol,
+                          style: TextStyle(fontSize: 14, color: suitColor),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Center(
+                    child: Text(
+                      suitSymbol,
+                      style: TextStyle(fontSize: 32, color: suitColor),
+                    ),
+                  ),
+                ],
               )
             : null);
   }
